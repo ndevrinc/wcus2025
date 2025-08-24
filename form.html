@@ -143,31 +143,22 @@
             margin-top: 20px;
         }
 
-        .download-section {
-            display: none;
+        .waitlist-info {
             text-align: center;
             margin-top: 20px;
             padding: 20px;
             background: #f8f9fa;
             border-radius: 10px;
+            border: 1px solid #e1e5e9;
         }
 
-        .download-btn {
-            background: #fe1132;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: background-color 0.3s ease;
+        .waitlist-info p {
+            margin: 5px 0;
+            color: #666;
         }
 
-        .download-btn:hover {
-            background: #d40026;
+        .waitlist-info strong {
+            color: #fe1132;
         }
 
         @media (max-width: 600px) {
@@ -210,7 +201,7 @@
     <div class="container">
         <div class="header">
             <h1>3E Framework Checklists</h1>
-            <p>Join the waitlist for comprehensive checklists to build resilient publishing platforms using the 3E Framework. Available September 2024.</p>
+            <p>Join the waitlist for comprehensive checklists to build resilient publishing platforms using the 3E Framework. Available September 2025.</p>
         </div>
 
         <form id="getChecklistsForm">
@@ -233,14 +224,14 @@
         </form>
 
         <div class="waitlist-info">
-            <p><strong>Coming September 2024</strong></p>
+            <p><strong>Coming September 2025</strong></p>
             <p>Be the first to get access to our comprehensive 3E Framework checklists when they launch.</p>
         </div>
         </form>
 
         <div id="successMessage" class="success-message">
             <h3>🎉 You're on the waitlist!</h3>
-            <p>Thank you for joining! We'll notify you as soon as the 3E Framework checklists are available in September 2024.</p>
+            <p>Thank you for joining! We'll notify you as soon as the 3E Framework checklists are available in September 2025.</p>
         </div>
 
         <div id="errorMessage" class="error-message">
@@ -253,7 +244,7 @@
     </div>
 
     <script>
-        document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+        document.getElementById('getChecklistsForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const name = document.getElementById('name').value;
@@ -263,76 +254,22 @@
             // Hide any existing messages
             document.getElementById('successMessage').style.display = 'none';
             document.getElementById('errorMessage').style.display = 'none';
-            document.getElementById('downloadSection').style.display = 'none';
             
             // Simulate form submission (replace with actual backend integration)
             setTimeout(() => {
                 // Show success message
                 document.getElementById('successMessage').style.display = 'block';
                 
-                // Show download section after a brief delay
-                setTimeout(() => {
-                    document.getElementById('downloadSection').style.display = 'block';
-                    
-                    // Set up download link (replace with actual PDF URL)
-                    const downloadLink = document.getElementById('downloadLink');
-                    downloadLink.href = '#'; // Replace with actual PDF URL
-                    downloadLink.download = '3E-Framework-Assessment.pdf';
-                    
-                    // For demo purposes, create a simple PDF download
-                    downloadLink.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        
-                        // Create a simple text-based checklist for demo
-                        const content = `3E Framework Checklists
-
-Name: ${name}
-Email: ${email}
-Role: ${role}
-Date: ${new Date().toLocaleDateString()}
-
-3E FRAMEWORK CHECKLISTS
-=======================
-
-ENVIRONMENT CHECKLIST:
-- Infrastructure scalability assessment
-- Performance monitoring setup
-- Security compliance review
-- Backup and disaster recovery
-- Load balancing configuration
-
-ENGINEERING CHECKLIST:
-- Code quality standards
-- Testing protocols
-- Documentation requirements
-- Deployment procedures
-- Monitoring and alerting
-
-EXPERIENCE CHECKLIST:
-- User interface design
-- Accessibility compliance
-- Performance optimization
-- User feedback integration
-- Analytics implementation
-
-Thank you for your interest in the 3E Framework for Building Resilient Publishing Platforms.
-
-For more information, visit: https://3eassessment.ndevr.io/`;
-                        
-                        const blob = new Blob([content], { type: 'text/plain' });
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = '3E-Framework-Checklists.txt';
-                        document.body.appendChild(a);
-                        a.click();
-                        window.URL.revokeObjectURL(url);
-                        document.body.removeChild(a);
-                    });
-                }, 1000);
-                
                 // Optional: Send data to your backend
-                console.log('Form submitted:', { name, email, role });
+                console.log('Waitlist signup:', { name, email, role });
+                
+                // Track the waitlist signup
+                if (window.gtag) {
+                    gtag('event', 'waitlist_signup', {
+                        'event_category': 'engagement',
+                        'event_label': '3e_framework_checklists'
+                    });
+                }
                 
             }, 1000);
         });
