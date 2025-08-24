@@ -161,6 +161,33 @@
             color: #fe1132;
         }
 
+        .checkbox-group {
+            margin-top: 15px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 2px;
+            width: auto;
+            padding: 0;
+            border: none;
+            background: none;
+        }
+
+        .checkbox-label input[type="checkbox"]:focus {
+            outline: 2px solid #fe1132;
+            outline-offset: 2px;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 30px 20px;
@@ -220,6 +247,14 @@
                 <input type="text" id="role" name="role" required placeholder="e.g., Developer, Manager, Director">
             </div>
 
+            <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <span class="checkmark"></span>
+                    Yes, add me to the newsletter for updates about the 3E Framework and publishing platform insights
+                </label>
+            </div>
+
             <button type="submit" class="submit-btn">Join Waitlist</button>
         </form>
 
@@ -230,8 +265,14 @@
         </form>
 
         <div id="successMessage" class="success-message">
-            <h3>🎉 You're on the waitlist!</h3>
-            <p>Thank you for joining! We'll notify you as soon as the 3E Framework checklists are available in September 2025.</p>
+            <h3>🎉 Thank you for joining!</h3>
+            <p>You're now on the waitlist for the 3E Framework checklists. We'll send you the comprehensive PDF checklists in September 2025.</p>
+            <p><strong>What's next?</strong></p>
+            <ul style="text-align: left; margin: 10px 0; padding-left: 20px;">
+                <li>We'll email you when the checklists are ready</li>
+                <li>You'll get early access to download the PDFs</li>
+                <li>If you opted in, you'll receive our newsletter with publishing platform insights</li>
+            </ul>
         </div>
 
         <div id="errorMessage" class="error-message">
@@ -250,6 +291,7 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const role = document.getElementById('role').value;
+            const newsletter = document.getElementById('newsletter').checked;
             
             // Hide any existing messages
             document.getElementById('successMessage').style.display = 'none';
@@ -261,7 +303,7 @@
                 document.getElementById('successMessage').style.display = 'block';
                 
                 // Optional: Send data to your backend
-                console.log('Waitlist signup:', { name, email, role });
+                console.log('Waitlist signup:', { name, email, role, newsletter });
                 
                 // Track the waitlist signup
                 if (window.gtag) {
